@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------
+   Design tokens (space-separated RGB channels so Tailwind alpha works)
+   ------------------------------------------------------------------ */
+:root {
+  --navy: 15 23 42;          /* #0F172A  primary */
+  --navy-soft: 30 41 59;     /* #1E293B  primary, raised surfaces */
+  --growth: 5 150 105;       /* #059669  secondary */
+  --growth-ink: 4 120 87;    /* #047857  secondary for text/buttons (AA on white) */
+  --growth-tint: 236 253 245;
+  --gold: 217 119 6;         /* #D97706  accent */
+  --gold-tint: 255 251 235;
+  --paper: 248 250 252;      /* #F8FAFC  alternate section background */
+  --line: 203 213 225;       /* #CBD5E1  borders */
+  --muted: 71 85 105;        /* slate-600, 7.6:1 on white */
+}
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-white font-sans text-navy antialiased;
+    font-feature-settings: "tnum" 0, "cv11" 1;
+  }
+  h1, h2, h3, h4 { @apply font-bold tracking-tight text-navy; }
+  :focus-visible {
+    outline: 2px solid rgb(var(--growth-ink));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .on-dark :focus-visible { outline-color: rgb(var(--gold)); }
+  ::selection { background: rgb(var(--growth) / 0.25); }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Ruled ledger paper: the one decorative motif, used on the hero only */
+  .ledger-rules {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 47px,
+      rgb(255 255 255 / 0.05) 47px,
+      rgb(255 255 255 / 0.05) 48px
+    );
+  }
+  .section-y { @apply py-16 md:py-24; }
+}
